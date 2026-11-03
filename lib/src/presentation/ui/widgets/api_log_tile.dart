@@ -171,6 +171,7 @@ Widget? _buildPayloadRow(BuildContext context, ApiLogItem log) {
           const SizedBox(width: 4),
           Expanded(
             child: RichText(
+              textScaler: MonitorThemeScope.textScalerOf(context),
               text: TextSpan(children: spans),
             ),
           ),
@@ -256,8 +257,11 @@ Widget? _buildCompactPayloadRow(ApiLogItem log) {
       }
     }
 
-    return RichText(
-      text: TextSpan(children: spans),
+    return Builder(
+      builder: (context) => RichText(
+        textScaler: MonitorThemeScope.textScalerOf(context),
+        text: TextSpan(children: spans),
+      ),
     );
   }
 
@@ -1804,7 +1808,7 @@ class _BodyBlockState extends State<_BodyBlock> {
   void _scrollToMatch(int matchIndex) {
     if (_matchingLineIndices.isEmpty || matchIndex >= _matchingLineIndices.length) return;
     final lineIdx = _matchingLineIndices[matchIndex];
-    const double lineH = 18.5;
+    final double lineH = 18.5 * MonitorThemeScope.textScalerOf(context).scale(1.0);
     final targetY = (lineIdx * lineH) - 60.0;
     if (_scrollController.hasClients) {
       final clamped = targetY.clamp(0.0, _scrollController.position.maxScrollExtent);
@@ -1887,8 +1891,11 @@ class _BodyBlockState extends State<_BodyBlock> {
     final sizeStr = _formatSize(widget.text.length);
     final lineCount = _lines.length;
 
-    final double linesHeight = (_lines.length * 18.5) + 16.0;
-    final double boxHeight = linesHeight.clamp(80.0, 360.0);
+    // Chiều cao dòng cố định => nhân theo hệ số phóng chữ để chữ không bị cắt
+    final double textScale = MonitorThemeScope.textScalerOf(context).scale(1.0);
+    final double lineExtent = 18.5 * textScale;
+    final double linesHeight = (_lines.length * lineExtent) + 16.0;
+    final double boxHeight = linesHeight.clamp(80.0, 360.0 * textScale);
 
     final Widget codeContent = Container(
       decoration: BoxDecoration(
@@ -1910,7 +1917,7 @@ class _BodyBlockState extends State<_BodyBlock> {
               child: ListView.builder(
                 controller: _scrollController,
                 itemCount: _lines.length,
-                itemExtent: 18.5,
+                itemExtent: lineExtent,
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 itemBuilder: (context, index) {
                   final line = _lines[index];
@@ -1920,7 +1927,7 @@ class _BodyBlockState extends State<_BodyBlock> {
                       _currentMatchIndex < _matchingLineIndices.length &&
                       _matchingLineIndices[_currentMatchIndex] == index;
 
-                  final lineNumWidth = (_lines.length.toString().length * 7.5 + 16.0).clamp(32.0, 64.0);
+                  final lineNumWidth = ((_lines.length.toString().length * 7.5 + 16.0) * textScale).clamp(32.0, 64.0 * textScale);
 
                   return Container(
                     color: isCurrentActiveMatch
@@ -1954,6 +1961,7 @@ class _BodyBlockState extends State<_BodyBlock> {
                         const SizedBox(width: 8),
                         Expanded(
                           child: RichText(
+                            textScaler: MonitorThemeScope.textScalerOf(context),
                             maxLines: 1,
                             overflow: TextOverflow.visible,
                             text: _buildHighlightedLine(
