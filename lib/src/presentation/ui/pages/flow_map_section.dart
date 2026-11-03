@@ -2356,10 +2356,11 @@ class _StateGraphPainter extends CustomPainter {
             final textPainter = TextPainter(
               text: textSpan,
               textDirection: TextDirection.ltr,
+              textScaler: MonitorTextStyle.textScaler,
             )..layout();
 
             final badgeW = textPainter.width + 10.0;
-            const badgeH = 16.0;
+            final badgeH = 16.0 * MonitorTextStyle.scale;
             final badgeRect = RRect.fromRectAndRadius(
               Rect.fromCenter(center: midPos, width: badgeW, height: badgeH),
               const Radius.circular(8.0),

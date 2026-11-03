@@ -131,7 +131,7 @@ abstract class MonitorColors {
 abstract class MonitorTextStyle {
   /// Hệ số phóng chữ riêng của DevMonitor (không phụ thuộc cỡ chữ hệ thống).
   /// Chỉnh trước khi chạy app, vd: `MonitorTextStyle.scale = 1.5;`
-  static double scale = 1.3;
+  static double scale = 1.5;
 
   static TextScaler get textScaler => TextScaler.linear(scale);
 
