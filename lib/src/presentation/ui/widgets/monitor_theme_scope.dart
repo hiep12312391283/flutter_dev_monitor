@@ -18,9 +18,9 @@ class MonitorThemeScope extends StatelessWidget {
         final mediaQueryData =
             MediaQuery.maybeOf(context) ?? const MediaQueryData();
 
-        // 1. Force 1.0x text scaling and disable bold text forcing
+        // 1. Force text scaling bằng MonitorTextStyle.scale and disable bold text forcing
         final cleanMediaQuery = mediaQueryData.copyWith(
-          textScaler: TextScaler.noScaling,
+          textScaler: MonitorTextStyle.textScaler,
           boldText: false,
         );
 

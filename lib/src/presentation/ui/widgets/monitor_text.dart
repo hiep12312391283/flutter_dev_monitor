@@ -29,7 +29,7 @@ class MonoText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         text,
-        textScaler: TextScaler.noScaling,
+        textScaler: MonitorTextStyle.textScaler,
         style: MonitorTextStyle.mono(size,
             color: color, weight: weight, height: height),
         maxLines: maxLines,
@@ -61,7 +61,7 @@ class LabelText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         text,
-        textScaler: TextScaler.noScaling,
+        textScaler: MonitorTextStyle.textScaler,
         style: MonitorTextStyle.label(color, size: size, spacing: spacing),
         maxLines: maxLines,
         overflow: overflow,
@@ -93,7 +93,7 @@ class BodyText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         text,
-        textScaler: TextScaler.noScaling,
+        textScaler: MonitorTextStyle.textScaler,
         style:
             MonitorTextStyle.body(size, color: color, weight: weight),
         maxLines: maxLines,
