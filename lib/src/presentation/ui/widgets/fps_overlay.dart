@@ -275,7 +275,9 @@ class _FpsOverlayState extends State<FpsOverlay> {
                   return const SizedBox.shrink();
                 }
 
+                // Menu nổi: giữ cỡ chữ gốc, chỉ phóng chữ ở màn dashboard
                 return MonitorThemeScope(
+                  scaleText: false,
                   child: Stack(
                     children: [
                     if (gridMode != GridMode.off)

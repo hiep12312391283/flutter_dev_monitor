@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/monitor_theme.dart';
+import 'monitor_theme_scope.dart';
 
 /// Monospace text — values, timestamps, route names, JSON.
 /// [color] defaults to [MonitorColors.secondaryText].
@@ -29,7 +30,7 @@ class MonoText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         text,
-        textScaler: MonitorTextStyle.textScaler,
+        textScaler: MonitorThemeScope.textScalerOf(context),
         style: MonitorTextStyle.mono(size,
             color: color, weight: weight, height: height),
         maxLines: maxLines,
@@ -61,7 +62,7 @@ class LabelText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         text,
-        textScaler: MonitorTextStyle.textScaler,
+        textScaler: MonitorThemeScope.textScalerOf(context),
         style: MonitorTextStyle.label(color, size: size, spacing: spacing),
         maxLines: maxLines,
         overflow: overflow,
@@ -93,7 +94,7 @@ class BodyText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         text,
-        textScaler: MonitorTextStyle.textScaler,
+        textScaler: MonitorThemeScope.textScalerOf(context),
         style:
             MonitorTextStyle.body(size, color: color, weight: weight),
         maxLines: maxLines,
